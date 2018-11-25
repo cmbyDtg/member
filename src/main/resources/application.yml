@@ -1,0 +1,30 @@
+spring:
+  thymeleaf:
+    prefix: classpath:/templates/
+    suffix: .html
+    mode: HTML
+    encoding: UTF-8
+    cache: false
+  datasource:
+    url: jdbc:mysql://127.0.0.1:3306/member?useUnicode=true&characterEncoding=utf8&serverTimezone=GMT%2B8&&useSSL=true
+    username: root
+    password: 123456
+  http:
+    encoding:
+      charset: UTF-8
+      enabled: true
+      force: true
+  messages:
+    encoding: UTF-8
+mybatis:
+  mapper-locations: classpath:mappers/*.xml
+  type-aliases-package: com.lvmingtao.member.model
+server:
+  tomcat:
+    uri-encoding: UTF-8
+#分页插件
+pagehelper:
+  helperDialect: mysql
+  reasonable: true
+  supportMethodsArguments: true
+  params: count=countSql

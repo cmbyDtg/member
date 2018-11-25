@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>首页</title>
+    <link rel="stylesheet" href="../layui/css/layui.css">
+    <script src="../layui/layui.js"></script>
+</head>
+<body>
+<div class="fly-header layui-bg-black">
+    <div class="layui-container " style="height: 60px;">
+        <h1>佳林汽车维修美容服务中心</h1>
+    </div>
+</div>
+<div class="layui-container">
+    <div class="layui-row layui-col-space8">
+        <div class="layui-col-md12">
+        <table class="layui-hide" id="test" lay-filter="test"></table>
+        <script id="toolbarDemo" type="text/html">
+            <div class="layui-btn-container">
+                <a class="layui-btn layui-btn-normal" data-type="getCheckData" href="/openAddMemberUser">添加会员</a>
+            </div>
+        </script>
+        <script id="barDemo" type="text/html">
+            <a class="layui-btn layui-btn-normal layui-btn-xs" lay-event="edit">编辑</a>
+            <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+        </script>
+        </div>
+    </div>
+</div>
+<script>
+    layui.use('table', function(){
+        var table = layui.table;
+        table.render({
+            elem: '#test'
+            ,toolbar: '#toolbarDemo'
+            ,cellMinWidth: 60
+            ,url:'/getMemberUserList'
+            ,cols: [
+                    [
+                        {field:'id',title: 'ID', sort: true}
+                        ,{field:'memberName', title: '会员名'}
+                        ,{field:'memberPhoneNumber', title: '手机号码', sort: true}
+                        ,{field:'memberLicensePlate', title: '车牌号'}
+                        ,{field:'creationTime', title: '创建时间'}
+                        ,{field:'updateTime', title: '最后修改时间', sort: true}
+                        ,{fixed: 'right', title:'操作', toolbar: '#barDemo'}
+                    ]
+                ]
+            ,page: {
+                groups:6
+                ,theme:'#1E9FFF'
+                ,limits:[10,20]
+            }
+        });
+        //监听行工具事件
+        table.on('tool(test)', function(obj){
+            var data = obj.data;
+            //console.log(obj)
+            if(obj.event === 'del'){
+                layer.confirm('真的删除行么', function(index){
+                    obj.del();
+                    layer.close(index);
+                });
+            } else if(obj.event === 'edit'){
+                layer.prompt({
+                    formType: 2
+                    ,value: data.email
+                }, function(value, index){
+                    obj.update({
+                        email: value
+                    });
+                    layer.close(index);
+                });
+            }
+        });
+    });
+</script>
+</body>
+</html>
