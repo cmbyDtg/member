@@ -8,7 +8,7 @@ import java.util.List;
 public class MemberUserResp {
 
     private Integer code;
-    private List<TMember> data;
+    private List<MemberUser> data;
     private Integer count;
     private String msg;
 }

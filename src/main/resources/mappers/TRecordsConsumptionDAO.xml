@@ -1,14 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.lvmingtao.member.mapper.TMemberDAO">
-  <resultMap id="BaseResultMap" type="com.lvmingtao.member.model.TMember">
+<mapper namespace="com.lvmingtao.member.mapper.TRecordsConsumptionDAO">
+  <resultMap id="BaseResultMap" type="com.lvmingtao.member.model.TRecordsConsumption">
     <id column="id" jdbcType="BIGINT" property="id" />
-    <result column="member_name" jdbcType="VARCHAR" property="memberName" />
-    <result column="member_phone_number" jdbcType="VARCHAR" property="memberPhoneNumber" />
-    <result column="member_license_plate" jdbcType="VARCHAR" property="memberLicensePlate" />
-    <result column="member_balance" jdbcType="INTEGER" property="memberBalance" />
+    <result column="member_id" jdbcType="BIGINT" property="memberId" />
+    <result column="consumption_type" jdbcType="INTEGER" property="consumptionType" />
+    <result column="consumption_amount_money" jdbcType="INTEGER" property="consumptionAmountMoney" />
+    <result column="consumption_remarks" jdbcType="VARCHAR" property="consumptionRemarks" />
     <result column="creation_time" jdbcType="TIMESTAMP" property="creationTime" />
-    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -69,16 +68,15 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, member_name, member_phone_number, member_license_plate, member_balance, creation_time, 
-    update_time
+    id, member_id, consumption_type, consumption_amount_money, consumption_remarks, creation_time
   </sql>
-  <select id="selectByExample" parameterType="com.lvmingtao.member.model.TMemberExample" resultMap="BaseResultMap">
+  <select id="selectByExample" parameterType="com.lvmingtao.member.model.TRecordsConsumptionExample" resultMap="BaseResultMap">
     select
     <if test="distinct">
       distinct
     </if>
     <include refid="Base_Column_List" />
-    from t_member
+    from t_records_consumption
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
@@ -97,105 +95,96 @@
   <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
-    from t_member
+    from t_records_consumption
     where id = #{id,jdbcType=BIGINT}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
-    delete from t_member
+    delete from t_records_consumption
     where id = #{id,jdbcType=BIGINT}
   </delete>
-  <delete id="deleteByExample" parameterType="com.lvmingtao.member.model.TMemberExample">
-    delete from t_member
+  <delete id="deleteByExample" parameterType="com.lvmingtao.member.model.TRecordsConsumptionExample">
+    delete from t_records_consumption
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.lvmingtao.member.model.TMember">
-    insert into t_member (id, member_name, member_phone_number, 
-      member_license_plate, member_balance, creation_time, 
-      update_time)
-    values (#{id,jdbcType=BIGINT}, #{memberName,jdbcType=VARCHAR}, #{memberPhoneNumber,jdbcType=VARCHAR}, 
-      #{memberLicensePlate,jdbcType=VARCHAR}, #{memberBalance,jdbcType=INTEGER}, #{creationTime,jdbcType=TIMESTAMP}, 
-      #{updateTime,jdbcType=TIMESTAMP})
+  <insert id="insert" parameterType="com.lvmingtao.member.model.TRecordsConsumption">
+    insert into t_records_consumption (id, member_id, consumption_type, 
+      consumption_amount_money, consumption_remarks, 
+      creation_time)
+    values (#{id,jdbcType=BIGINT}, #{memberId,jdbcType=BIGINT}, #{consumptionType,jdbcType=INTEGER}, 
+      #{consumptionAmountMoney,jdbcType=INTEGER}, #{consumptionRemarks,jdbcType=VARCHAR}, 
+      #{creationTime,jdbcType=TIMESTAMP})
   </insert>
-  <insert id="insertSelective" parameterType="com.lvmingtao.member.model.TMember">
-    insert into t_member
+  <insert id="insertSelective" parameterType="com.lvmingtao.member.model.TRecordsConsumption">
+    insert into t_records_consumption
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">
         id,
       </if>
-      <if test="memberName != null">
-        member_name,
+      <if test="memberId != null">
+        member_id,
       </if>
-      <if test="memberPhoneNumber != null">
-        member_phone_number,
+      <if test="consumptionType != null">
+        consumption_type,
       </if>
-      <if test="memberLicensePlate != null">
-        member_license_plate,
+      <if test="consumptionAmountMoney != null">
+        consumption_amount_money,
       </if>
-      <if test="memberBalance != null">
-        member_balance,
+      <if test="consumptionRemarks != null">
+        consumption_remarks,
       </if>
       <if test="creationTime != null">
         creation_time,
-      </if>
-      <if test="updateTime != null">
-        update_time,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="id != null">
         #{id,jdbcType=BIGINT},
       </if>
-      <if test="memberName != null">
-        #{memberName,jdbcType=VARCHAR},
+      <if test="memberId != null">
+        #{memberId,jdbcType=BIGINT},
       </if>
-      <if test="memberPhoneNumber != null">
-        #{memberPhoneNumber,jdbcType=VARCHAR},
+      <if test="consumptionType != null">
+        #{consumptionType,jdbcType=INTEGER},
       </if>
-      <if test="memberLicensePlate != null">
-        #{memberLicensePlate,jdbcType=VARCHAR},
+      <if test="consumptionAmountMoney != null">
+        #{consumptionAmountMoney,jdbcType=INTEGER},
       </if>
-      <if test="memberBalance != null">
-        #{memberBalance,jdbcType=INTEGER},
+      <if test="consumptionRemarks != null">
+        #{consumptionRemarks,jdbcType=VARCHAR},
       </if>
       <if test="creationTime != null">
         #{creationTime,jdbcType=TIMESTAMP},
       </if>
-      <if test="updateTime != null">
-        #{updateTime,jdbcType=TIMESTAMP},
-      </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="com.lvmingtao.member.model.TMemberExample" resultType="java.lang.Long">
-    select count(*) from t_member
+  <select id="countByExample" parameterType="com.lvmingtao.member.model.TRecordsConsumptionExample" resultType="java.lang.Long">
+    select count(*) from t_records_consumption
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </select>
   <update id="updateByExampleSelective" parameterType="map">
-    update t_member
+    update t_records_consumption
     <set>
       <if test="record.id != null">
         id = #{record.id,jdbcType=BIGINT},
       </if>
-      <if test="record.memberName != null">
-        member_name = #{record.memberName,jdbcType=VARCHAR},
+      <if test="record.memberId != null">
+        member_id = #{record.memberId,jdbcType=BIGINT},
       </if>
-      <if test="record.memberPhoneNumber != null">
-        member_phone_number = #{record.memberPhoneNumber,jdbcType=VARCHAR},
+      <if test="record.consumptionType != null">
+        consumption_type = #{record.consumptionType,jdbcType=INTEGER},
       </if>
-      <if test="record.memberLicensePlate != null">
-        member_license_plate = #{record.memberLicensePlate,jdbcType=VARCHAR},
+      <if test="record.consumptionAmountMoney != null">
+        consumption_amount_money = #{record.consumptionAmountMoney,jdbcType=INTEGER},
       </if>
-      <if test="record.memberBalance != null">
-        member_balance = #{record.memberBalance,jdbcType=INTEGER},
+      <if test="record.consumptionRemarks != null">
+        consumption_remarks = #{record.consumptionRemarks,jdbcType=VARCHAR},
       </if>
       <if test="record.creationTime != null">
         creation_time = #{record.creationTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="record.updateTime != null">
-        update_time = #{record.updateTime,jdbcType=TIMESTAMP},
       </if>
     </set>
     <if test="_parameter != null">
@@ -203,50 +192,45 @@
     </if>
   </update>
   <update id="updateByExample" parameterType="map">
-    update t_member
+    update t_records_consumption
     set id = #{record.id,jdbcType=BIGINT},
-      member_name = #{record.memberName,jdbcType=VARCHAR},
-      member_phone_number = #{record.memberPhoneNumber,jdbcType=VARCHAR},
-      member_license_plate = #{record.memberLicensePlate,jdbcType=VARCHAR},
-      member_balance = #{record.memberBalance,jdbcType=INTEGER},
-      creation_time = #{record.creationTime,jdbcType=TIMESTAMP},
-      update_time = #{record.updateTime,jdbcType=TIMESTAMP}
+      member_id = #{record.memberId,jdbcType=BIGINT},
+      consumption_type = #{record.consumptionType,jdbcType=INTEGER},
+      consumption_amount_money = #{record.consumptionAmountMoney,jdbcType=INTEGER},
+      consumption_remarks = #{record.consumptionRemarks,jdbcType=VARCHAR},
+      creation_time = #{record.creationTime,jdbcType=TIMESTAMP}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.lvmingtao.member.model.TMember">
-    update t_member
+  <update id="updateByPrimaryKeySelective" parameterType="com.lvmingtao.member.model.TRecordsConsumption">
+    update t_records_consumption
     <set>
-      <if test="memberName != null">
-        member_name = #{memberName,jdbcType=VARCHAR},
+      <if test="memberId != null">
+        member_id = #{memberId,jdbcType=BIGINT},
       </if>
-      <if test="memberPhoneNumber != null">
-        member_phone_number = #{memberPhoneNumber,jdbcType=VARCHAR},
+      <if test="consumptionType != null">
+        consumption_type = #{consumptionType,jdbcType=INTEGER},
       </if>
-      <if test="memberLicensePlate != null">
-        member_license_plate = #{memberLicensePlate,jdbcType=VARCHAR},
+      <if test="consumptionAmountMoney != null">
+        consumption_amount_money = #{consumptionAmountMoney,jdbcType=INTEGER},
       </if>
-      <if test="memberBalance != null">
-        member_balance = #{memberBalance,jdbcType=INTEGER},
+      <if test="consumptionRemarks != null">
+        consumption_remarks = #{consumptionRemarks,jdbcType=VARCHAR},
       </if>
       <if test="creationTime != null">
         creation_time = #{creationTime,jdbcType=TIMESTAMP},
       </if>
-      <if test="updateTime != null">
-        update_time = #{updateTime,jdbcType=TIMESTAMP},
-      </if>
     </set>
     where id = #{id,jdbcType=BIGINT}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.lvmingtao.member.model.TMember">
-    update t_member
-    set member_name = #{memberName,jdbcType=VARCHAR},
-      member_phone_number = #{memberPhoneNumber,jdbcType=VARCHAR},
-      member_license_plate = #{memberLicensePlate,jdbcType=VARCHAR},
-      member_balance = #{memberBalance,jdbcType=INTEGER},
-      creation_time = #{creationTime,jdbcType=TIMESTAMP},
-      update_time = #{updateTime,jdbcType=TIMESTAMP}
+  <update id="updateByPrimaryKey" parameterType="com.lvmingtao.member.model.TRecordsConsumption">
+    update t_records_consumption
+    set member_id = #{memberId,jdbcType=BIGINT},
+      consumption_type = #{consumptionType,jdbcType=INTEGER},
+      consumption_amount_money = #{consumptionAmountMoney,jdbcType=INTEGER},
+      consumption_remarks = #{consumptionRemarks,jdbcType=VARCHAR},
+      creation_time = #{creationTime,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=BIGINT}
   </update>
 </mapper>

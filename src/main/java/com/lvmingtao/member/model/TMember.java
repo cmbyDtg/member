@@ -1,8 +1,5 @@
 package com.lvmingtao.member.model;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
-import org.springframework.format.annotation.DateTimeFormat;
-
 import java.io.Serializable;
 import java.util.Date;
 
@@ -29,17 +26,18 @@ public class TMember implements Serializable {
     private String memberLicensePlate;
 
     /**
+     * 会员余额（单位分）
+     */
+    private Integer memberBalance;
+
+    /**
      * 创建时间
      */
-    @JsonFormat(timezone = "GMT+8", pattern = "yyyy-MM-dd HH:mm:ss")
-    @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
     private Date creationTime;
 
     /**
      * 修改时间
      */
-    @JsonFormat(timezone = "GMT+8", pattern = "yyyy-MM-dd HH:mm:ss")
-    @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
     private Date updateTime;
 
     private static final long serialVersionUID = 1L;
@@ -76,6 +74,14 @@ public class TMember implements Serializable {
         this.memberLicensePlate = memberLicensePlate;
     }
 
+    public Integer getMemberBalance() {
+        return memberBalance;
+    }
+
+    public void setMemberBalance(Integer memberBalance) {
+        this.memberBalance = memberBalance;
+    }
+
     public Date getCreationTime() {
         return creationTime;
     }
@@ -108,6 +114,7 @@ public class TMember implements Serializable {
             && (this.getMemberName() == null ? other.getMemberName() == null : this.getMemberName().equals(other.getMemberName()))
             && (this.getMemberPhoneNumber() == null ? other.getMemberPhoneNumber() == null : this.getMemberPhoneNumber().equals(other.getMemberPhoneNumber()))
             && (this.getMemberLicensePlate() == null ? other.getMemberLicensePlate() == null : this.getMemberLicensePlate().equals(other.getMemberLicensePlate()))
+            && (this.getMemberBalance() == null ? other.getMemberBalance() == null : this.getMemberBalance().equals(other.getMemberBalance()))
             && (this.getCreationTime() == null ? other.getCreationTime() == null : this.getCreationTime().equals(other.getCreationTime()))
             && (this.getUpdateTime() == null ? other.getUpdateTime() == null : this.getUpdateTime().equals(other.getUpdateTime()));
     }
@@ -120,6 +127,7 @@ public class TMember implements Serializable {
         result = prime * result + ((getMemberName() == null) ? 0 : getMemberName().hashCode());
         result = prime * result + ((getMemberPhoneNumber() == null) ? 0 : getMemberPhoneNumber().hashCode());
         result = prime * result + ((getMemberLicensePlate() == null) ? 0 : getMemberLicensePlate().hashCode());
+        result = prime * result + ((getMemberBalance() == null) ? 0 : getMemberBalance().hashCode());
         result = prime * result + ((getCreationTime() == null) ? 0 : getCreationTime().hashCode());
         result = prime * result + ((getUpdateTime() == null) ? 0 : getUpdateTime().hashCode());
         return result;
@@ -135,6 +143,7 @@ public class TMember implements Serializable {
         sb.append(", memberName=").append(memberName);
         sb.append(", memberPhoneNumber=").append(memberPhoneNumber);
         sb.append(", memberLicensePlate=").append(memberLicensePlate);
+        sb.append(", memberBalance=").append(memberBalance);
         sb.append(", creationTime=").append(creationTime);
         sb.append(", updateTime=").append(updateTime);
         sb.append(", serialVersionUID=").append(serialVersionUID);

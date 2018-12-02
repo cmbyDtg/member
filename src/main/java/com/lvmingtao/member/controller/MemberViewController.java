@@ -19,7 +19,7 @@ public class MemberViewController {
     }
 
     @RequestMapping(value = "addMemberUser", method = RequestMethod.POST)
-    private String addMemberUser(AddMemberRsp rsp) {
+    public String addMemberUser(AddMemberRsp rsp) {
         TMember tMember = new TMember();
         tMember.setMemberName(rsp.getMemberName());
         tMember.setMemberPhoneNumber(rsp.getMemberPhoneNumber());
@@ -27,4 +27,17 @@ public class MemberViewController {
         memberService.addMemberUser(tMember);
         return "login";
     }
+
+    /**
+     * 删除
+     * @param id
+     * @return 回到主页
+     */
+//    @RequestMapping(value = "deleteMemberUser", method = RequestMethod.GET)
+//    public void deleteMemberUser(){
+//        System.out.println("FFFFFFFFFFFFFFF");
+////        memberService.deleteMemberUser(id);
+//    }
+
+
 }
